@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../css/app.css">
+        <style>
+            .tituloMiCuenta{
+                font-size: 40px;
+                color: #008c9d;
+                padding-left: 12px;
+            }
+            .icon-usuario:before{
+                font-size: 70px !important;
+
+            }
+            .subTituloMiCuenta{
+
+                font-size: 22px !important;
+                color: #008c9d !important;
+            }
+        </style>
+    </head>
+    <body class="modal" onload="cargando();">
+        <div class="preload">
+            <img src="../img/cargando.gif" class="preload-img">
+        </div>
+        <div class="tituloMiCuenta">
+            <h2>Mi Cuenta <span class="icon-usuario"></span></h2>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="formulario">
+            <form id="frmUser">
+                <input type="hidden" value="" name="action" id="action">
+                <input type="hidden" id="id" name="id" />
+                <table>
+                    <tr>
+                        <td>
+                            <label for="dni">DNI</label>
+                            <input type="text" id="dni" name="dni"/>
+                        </td>
+                        <td>
+                            <label for="nombre">Nombres</label>
+                            <input type="text" id="nombre" name="nombre"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="apellidoP">Apellido Paterno</label>
+                            <input type="text" id="apellidoP" name="apellidoP"/>
+                        </td>
+                        <td>
+                            <label for="apellidoM">Apellido Materno</label>
+                            <input type="text" id="apellidoM" name="apellidoM"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="ncel">Nro Celular</label>
+                            <input type="text" id="ncel" name="ncel"/>
+                        </td>
+                        <td>
+                            <label for="mail">Correo</label>
+                            <input type="text" id="mail" name="mail"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label for="tipo">Personal de salud</label>
+                            <select  id="tipo" name="tipo">
+                                <option>Seleccione</option>
+                                <option value="1">Medico Asistente</option>
+                                <option value="2">Medico Residente</option>
+                                <option value="3">Enfermerx</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <div class="subTituloMiCuenta">
+                    <h2>Datos de la cuneta</h2>
+                </div>
+                <br>
+                <hr>
+                <br>
+                <table>
+                    <tr>
+                        <td>
+                            <label for="nombreU">Usuario</label>
+                            <input type="text" id="nombreU" name="nombreU"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="pass">Contraseña</label>
+                            <input type="password" id="pass" name="pass" value="password"/>
+                        </td>
+                    </tr>
+                </table>
+                <div class="botones">
+                    <div class="msg">mensaje</div>
+                    <button type="button" class="icon-guardar">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <script src="../js/jquery-2.1.1.min.js"></script>
+        <script src="../js/app.js"></script>
+        <script>
+        $('#data').css('height', '167px');
+        estoyEnUnIframe();
+        $.ajax({
+            type: 'POST',
+            url: '../crl/usuarioCRL.php',
+            data: {action: 'getMiCuenta'},
+            success: function (data) {
+                console.log(data);
+                var cuenta = JSON.parse(data);
+                console.log(cuenta[10]);
+                $('#dni').val(cuenta[2]);
+                $('#nombre').val(cuenta[3]);
+                $('#apellidoP').val(cuenta[4]);
+                $('#apellidoM').val(cuenta[5]);
+                $('#ncel').val(cuenta[6]);
+                $('#mail').val(cuenta[7]);
+                $('#tipo').val(cuenta[10]);
+                $('#nombreU').val(cuenta[1]);
+            },
+            error: function () {
+            }
+        });
+        /*loadUsers();
+         $.ajax({
+         type: 'POST',
+         url: '../crl/tiendasCRL.php',
+         data: {action: 'list'},
+         success: function (data) {
+         var tienda = JSON.parse(data);
+         var string = '<option value=\"0\">Seleccione...</option>';
+         for (var i = 0; i < tienda.length; i++) {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         $('#tiend').html(string);
+         },
+         error: function () {
+         }
+         });
+         $('#tipo').change(function () {
+         var tipo = $('#tipo').val()
+         $.ajax({
+         type: 'POST',
+         url: '../crl/tiendasCRL.php',
+         data: {action: 'list'},
+         success: function (data) {
+         var tienda = JSON.parse(data);
+         var string = '<option value=\"0\">Seleccione...</option>';
+         for (var i = 0; i < tienda.length; i++) {
+         if (tipo == "Administrador"||tipo == "Optometra") {
+         if (tienda[i][0] == "1") {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         } else if (tipo == "Ventas") {
+         if (tienda[i][0] != "1") {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         }
+         }
+         $('#tiend').html(string);
+         },
+         error: function () {
+         }
+         });
+         });
+         function loadUsers() {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'listUsuarios'},
+         success: function (data) {
+         var users = JSON.parse(data);
+         var string = '';
+         for (var i = 0; i < users.length; i++) {
+         string += '<tr onclick=\"getUser(\'' + users[i].idUsuario + '\');\">\n\
+         <td class=\"ColMS atr ch\">' + (i + 1) + '</td>\n\
+         <td>' + users[i].nombres + " " + users[i].apellidos + '</td>\n\
+         <td>' + users[i].nombUser + '</td>\n\
+         <td>' + users[i].tipo + '</td>\n\
+         <td>' + users[i].tienda + '</td></tr>';
+         }
+         for (var i = 0; i < (6 - users.length); i++) {
+         string += '<tr><td class=\"ColMS ch\"></td>\n\
+         <td>&nbsp;</td>\n\
+         <td></td><td></td><td></td></tr>';
+         }
+         $('#data').html(string);
+         formatoTabla('152px');
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         formatoTabla('152px');
+         }
+         function getUser(id) {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'getusuario', id: id},
+         success: function (data) {
+         if (data != "no") {
+         Limpiar();
+         var users = JSON.parse(data);
+         $('#id').val(users[0]);
+         $('#nombre').val(users[3]);
+         $('#apellido').val(users[2]);
+         $('#tipo').val(users[5]);
+         $('#usuario').val(users[1]);
+         $('#tiend').val(users[7]);
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         function Limpiar() {
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         $('#tiend').val('0');
+         $('.msg').css("display", "none");
+         $('#nombre').focus();
+         }
+         function Eliminar() {
+         if ($('#id').val() != "") {
+         if (confirm('Desea Eliminar?')) {
+         var id = $('#id').val();
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {idUsuario: id, action: "removeUsuario"},
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario eliminado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         }
+         else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         } else {
+         msgError("Error!, Seleccione un Usuario.", "red");
+         }
+         
+         }
+         $(function () {
+         $('#frmUser').submit(function (event) {
+         event.preventDefault();
+         if ($('#nombre').val() == "" || $('#apellido').val() == "" || $('#tipo').val() == "Seleccione" || $('#usuario').val() == "") {
+         msgError("Complete todos los datos", "orange");
+         $('#nombre').focus();
+         } else {
+         if (confirm('Desea guardar?')) {
+         if ($('#id').val() == "") {
+         $('#action').val('insertUsuario');
+         if ($('#pass').val() != "" && $('#rpass').val() != "") {
+         if ($('#pass').val() == $('#rpass').val()) {
+         
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'getuser', user: $('#usuario').val()},
+         success: function (data) {
+         if (data == '') {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario creado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         msgError("Error el nombre de usuario ya existe!!.", "orange");
+         $('#usuario').focus();
+         $('#usuario').select();
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         else {
+         msgError("Error. Las contraseñan no coinciden.", "red");
+         $('#pass').focus();
+         }
+         } else {
+         msgError("Error. Contraseña en blanco.", "red");
+         $('#pass').focus();
+         }
+         }
+         else {
+         if ($('#pass').val() == "" && $('#rpass').val() == "") {
+         $('#action').val('updateUsuario');
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario Actualizado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         if ($('#pass').val() == $('#rpass').val()) {
+         $('#action').val('updateContrasena');
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario Actualizado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         msgError("Error. Las contraseñan no coinciden.", "red");
+         $('#pass').focus();
+         }
+         }
+         }
+         }
+         }
+         });
+         });*/
+
+        </script>
+    </body>
+</html>
