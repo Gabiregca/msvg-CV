@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../css/app.css">
+        <style>
+            .tituloMiCuenta{
+                font-size: 22px;
+                color: #008c9d;
+                padding-left: 12px;
+            }
+            .icon-usuario:before{
+                font-size: 70px !important;
+
+            }
+            .subTituloMiCuenta{
+
+                font-size: 22px !important;
+                color: #008c9d !important;
+            }
+        </style>
+    </head>
+    <body class="modal" onload="cargando();">
+        <div class="preload">
+            <img src="../img/cargando.gif" class="preload-img">
+        </div>
+        <div class="tituloMiCuenta">
+            <h2>Registro de Paciente</h2>
+        </div>
+        <br>
+        <hr>
+        <br>
+        <div class="formulario">
+            <form id="frmUser">
+                <input type="hidden" value="" name="action" id="action">
+                <input type="hidden" id="id" name="id" />
+                <table>
+                    <tr>
+                        <td>
+                            <label for="nombre">DNI</label>
+                            <input type="text" id="nombre" name="nombre"/>
+                        </td>
+                        <td>
+                            <label for="apellido">Nombres</label>
+                            <input type="text" id="apellido" name="apellido"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="nombre">Apellido Paterno</label>
+                            <input type="text" id="nombre" name="nombre"/>
+                        </td>
+                        <td>
+                            <label for="apellido">Apellido Materno</label>
+                            <input type="text" id="apellido" name="apellido"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="nombre">Edad</label>
+                            <select  id="tipo" name="tipo">
+                                <option>Seleccione</option>
+                                <option >1</option>
+                                <option >2</option>
+                                <option >3</option>
+                                <option >4</option>
+                                <option >5</option>
+                                <option >6</option>
+                                <option >7</option>
+                                <option >8</option>
+                                <option >9</option>
+                                <option >10</option>
+                                <option >11</option>
+                                <option >12</option>
+                                <option >13</option>
+                                <option >14</option>
+                                <option >15</option>
+                                <option >16</option>
+                                <option >17</option>
+                                <option >18</option>
+                                <option >19</option>
+                                <option >20</option>
+                                <option >21</option>
+                                <option >22</option>
+                                <option >23</option>
+                                <option >24</option>
+                                <option >25</option>
+                                <option >26</option>
+                                <option >27</option>
+                                <option >28</option>
+                                <option >29</option>
+                                <option >30</option>
+                                <option >31</option>
+                                <option >32</option>
+                                <option >33</option>
+                                <option >34</option>
+                                <option >35</option>
+                                <option >36</option>
+                                <option >37</option>
+                                <option >38</option>
+                                <option >39</option>
+                                <option >40</option>
+                                <option >41</option>
+                                <option >42</option>
+                                <option >43</option>
+                                <option >44</option>
+                                <option >45</option>
+                                <option >46</option>
+                                <option >47</option>
+                                <option >48</option>
+                                <option >49</option>
+                                <option >50</option>
+                                <option >51</option>
+                                <option >52</option>
+                                <option >53</option>
+                                <option >54</option>
+                                <option >55</option>
+                                <option >56</option>
+                                <option >57</option>
+                                <option >58</option>
+                                <option >59</option>
+                                <option >60</option>
+                                <option >61</option>
+                                <option >62</option>
+                                <option >63</option>
+                                <option >64</option>
+                                <option >65</option>
+                                <option >66</option>
+                                <option >67</option>
+                                <option >68</option>
+                                <option >69</option>
+                                <option >70</option>
+                                <option >71</option>
+                                <option >72</option>
+                                <option >73</option>
+                                <option >74</option>
+                                <option >75</option>
+                                <option >76</option>
+                                <option >77</option>
+                                <option >78</option>
+                                <option >79</option>
+                                <option >80</option>
+                            </select>
+                        </td>
+                        <td>
+                            <label for="apellido">Nro Historia</label>
+                            <input type="text" id="apellido" name="apellido"/>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            <label for="apellido">Habitacion</label>
+                            <input type="text" id="apellido" name="apellido"/>
+                        </td>
+                        <td>
+                            <label for="apellido">Nro Cama</label>
+                            <input type="text" id="apellido" name="apellido"/>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <label for="apellido">Fecha</label>
+                            <input type="date" id="apellido" name="apellido" style="width: 445px !important;"/>
+                        </td>
+                        <td>
+                            <label for="apellido">Diagnostico</label>
+                            <textarea id="apellido" name="apellido" style="height: 70px; width: 540px;"></textarea>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label for="usuario">Gadget</label>
+                            <select  id="tipo" name="tipo">
+                                <option>Seleccione</option>
+                                <option value="Asistente">Error al obtener el obj BD > ORA-2020</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            <label for="usuario">Estado Paciente</label>
+                            <select  id="tipo" name="tipo">
+                                <option>Seleccione</option>
+                                <option value="Asistente">Error al obtener el obj BD > ORA-2020</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+                
+                <div class="botones">
+                    <div class="msg">mensaje</div>
+                    <button onclick="" type="button" class="icon-nuevo">Nuevo</button>
+                    <button type="button" class="icon-guardar">Guardar</button>
+                </div>
+            </form>
+        </div>
+        <!--div class="tabla">
+            <table class="datatable">
+                <thead>
+                    <tr>
+                        <td class="ColMS">Item</td>
+                        <td>Nombre</td>
+                        <td>Usuario</td>
+                        <td>Tipo Usuario</td>
+                        <td>Tienda</td>
+                    </tr>
+                </thead>
+                <tbody id="data">
+
+                </tbody>
+            </table>
+        </div-->
+        <script src="../js/jquery-2.1.1.min.js"></script>
+        <script src="../js/app.js"></script>
+        <script>
+        $('#data').css('height', '167px');
+        //estoyEnUnIframe();
+        /*loadUsers();
+         $.ajax({
+         type: 'POST',
+         url: '../crl/tiendasCRL.php',
+         data: {action: 'list'},
+         success: function (data) {
+         var tienda = JSON.parse(data);
+         var string = '<option value=\"0\">Seleccione...</option>';
+         for (var i = 0; i < tienda.length; i++) {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         $('#tiend').html(string);
+         },
+         error: function () {
+         }
+         });
+         $('#tipo').change(function () {
+         var tipo = $('#tipo').val()
+         $.ajax({
+         type: 'POST',
+         url: '../crl/tiendasCRL.php',
+         data: {action: 'list'},
+         success: function (data) {
+         var tienda = JSON.parse(data);
+         var string = '<option value=\"0\">Seleccione...</option>';
+         for (var i = 0; i < tienda.length; i++) {
+         if (tipo == "Administrador"||tipo == "Optometra") {
+         if (tienda[i][0] == "1") {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         } else if (tipo == "Ventas") {
+         if (tienda[i][0] != "1") {
+         string += '<option value=\"' + tienda[i][0] + '\">' + tienda[i][1] + '</option>';
+         }
+         }
+         }
+         $('#tiend').html(string);
+         },
+         error: function () {
+         }
+         });
+         });
+         function loadUsers() {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'listUsuarios'},
+         success: function (data) {
+         var users = JSON.parse(data);
+         var string = '';
+         for (var i = 0; i < users.length; i++) {
+         string += '<tr onclick=\"getUser(\'' + users[i].idUsuario + '\');\">\n\
+         <td class=\"ColMS atr ch\">' + (i + 1) + '</td>\n\
+         <td>' + users[i].nombres + " " + users[i].apellidos + '</td>\n\
+         <td>' + users[i].nombUser + '</td>\n\
+         <td>' + users[i].tipo + '</td>\n\
+         <td>' + users[i].tienda + '</td></tr>';
+         }
+         for (var i = 0; i < (6 - users.length); i++) {
+         string += '<tr><td class=\"ColMS ch\"></td>\n\
+         <td>&nbsp;</td>\n\
+         <td></td><td></td><td></td></tr>';
+         }
+         $('#data').html(string);
+         formatoTabla('152px');
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         formatoTabla('152px');
+         }
+         function getUser(id) {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'getusuario', id: id},
+         success: function (data) {
+         if (data != "no") {
+         Limpiar();
+         var users = JSON.parse(data);
+         $('#id').val(users[0]);
+         $('#nombre').val(users[3]);
+         $('#apellido').val(users[2]);
+         $('#tipo').val(users[5]);
+         $('#usuario').val(users[1]);
+         $('#tiend').val(users[7]);
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         function Limpiar() {
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         $('#tiend').val('0');
+         $('.msg').css("display", "none");
+         $('#nombre').focus();
+         }
+         function Eliminar() {
+         if ($('#id').val() != "") {
+         if (confirm('Desea Eliminar?')) {
+         var id = $('#id').val();
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {idUsuario: id, action: "removeUsuario"},
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario eliminado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         }
+         else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         } else {
+         msgError("Error!, Seleccione un Usuario.", "red");
+         }
+         
+         }
+         $(function () {
+         $('#frmUser').submit(function (event) {
+         event.preventDefault();
+         if ($('#nombre').val() == "" || $('#apellido').val() == "" || $('#tipo').val() == "Seleccione" || $('#usuario').val() == "") {
+         msgError("Complete todos los datos", "orange");
+         $('#nombre').focus();
+         } else {
+         if (confirm('Desea guardar?')) {
+         if ($('#id').val() == "") {
+         $('#action').val('insertUsuario');
+         if ($('#pass').val() != "" && $('#rpass').val() != "") {
+         if ($('#pass').val() == $('#rpass').val()) {
+         
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: {action: 'getuser', user: $('#usuario').val()},
+         success: function (data) {
+         if (data == '') {
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario creado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         msgError("Error el nombre de usuario ya existe!!.", "orange");
+         $('#usuario').focus();
+         $('#usuario').select();
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         }
+         else {
+         msgError("Error. Las contraseñan no coinciden.", "red");
+         $('#pass').focus();
+         }
+         } else {
+         msgError("Error. Contraseña en blanco.", "red");
+         $('#pass').focus();
+         }
+         }
+         else {
+         if ($('#pass').val() == "" && $('#rpass').val() == "") {
+         $('#action').val('updateUsuario');
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario Actualizado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         if ($('#pass').val() == $('#rpass').val()) {
+         $('#action').val('updateContrasena');
+         $.ajax({
+         type: 'POST',
+         url: '../crl/usuarioCRL.php',
+         data: $('#frmUser').serialize(),
+         success: function (data) {
+         if (data == "OK") {
+         msgError("Exito!, Usuario Actualizado.", "green");
+         $('#id').val('');
+         $('#nombre').val('');
+         $('#apellido').val('');
+         $('#tipo').val('Seleccione');
+         $('#usuario').val('');
+         $('#pass').val('');
+         $('#rpass').val('');
+         loadUsers();
+         } else {
+         msgError("Error!, porfavor intentelo otra vez", "red");
+         }
+         },
+         error: function () {
+         msgError("Error del Sistema.", "red");
+         }
+         });
+         } else {
+         msgError("Error. Las contraseñan no coinciden.", "red");
+         $('#pass').focus();
+         }
+         }
+         }
+         }
+         }
+         });
+         });*/
+
+        </script>
+    </body>
+</html>

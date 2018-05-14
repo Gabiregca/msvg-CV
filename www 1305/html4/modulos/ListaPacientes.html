@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../css/app.css">
+        <style>
+            .bloqueo{
+                display: none;
+                position: absolute;
+                background: transparent;
+                height: 100%;
+                width: 100%;
+                top:0px;
+                left: 0px;
+                text-align: center;
+            }
+            .advertenciaMainContant{
+                margin: 150px auto 0 auto;
+                display: block;
+                position: relative;
+                width: 600px;
+                box-shadow: 0px 0px 47px rgba(0,0,0,.7);
+                border-radius: 15px;
+            }
+
+            .titleMainCpontent {
+                background-color: #E43834;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                padding: 10px 0px;
+                height: 50px;
+            }
+
+            .imgAdvertenciaContent {
+                position: absolute;
+                top: 12px;
+                right: 40px;
+                margin: 0px;
+                width: 8%;
+            }
+
+            .titleAdvertencia {
+                color: white;
+                font-family: sans-serif;
+                font-size: 24px;
+                position: absolute;
+                top: 20px;
+                left: 40px;;
+            }
+
+            .imgAdvertencia {
+                margin: 0px;
+            }
+
+            .contenidoMain {
+                background: #F4F4F4;
+                border-bottom: 2px solid #BCBCBC;
+                border-left: 2px solid #BCBCBC;
+                border-right: 2px solid #BCBCBC;
+                border-bottom-left-radius: 15px;
+                border-bottom-right-radius: 15px;
+                text-align: center;
+                padding: 30px 0px 40px 0px;
+            }
+
+            .textMainAlert {
+                font-family: sans-serif;
+                font-size: 20px;
+                color: #606060;
+                margin: 0px;
+                text-transform: uppercase;
+            }
+
+            .textDescription {
+                font-family: sans-serif;
+                font-size: 17px;
+                color: #606060;
+                margin: 10px 0px 30px 0px;
+            }
+
+            .btnAceptar {
+                font-family: sans-serif;
+                background-color: #E43834;
+                font-size: 18px;
+                box-shadow: 0 3px 0 0 #C52727;
+                border-radius: 9px;
+                color: white;
+                text-decoration: none;
+                padding: 10px 50px;
+            }
+            .agregados{
+                position: absolute;
+                top: 0px;
+                right: 0px;
+                width: 300px;
+                background: #EF5350;
+                height: 100%;
+            }
+            .cont-dad{
+                height: 100%;
+                width: 820px;
+                margin: 0px;
+            }
+            .add-titu{
+                color: white !important;
+                margin: 10px;
+                font-size: 20px !important;
+            }
+            .add-ls{  
+                display: block;
+                list-style: none;
+                text-align: center;
+                overflow-y: scroll;
+                height: 560px;
+            }
+            .add-item{
+                margin-bottom: 10px;
+            }
+            .add-item .add-nom{
+                display: inline-block;
+                background: white;
+                padding: 10px;
+                width: 200px;
+                text-align: left;
+            }
+            .add-item .add-cont{
+                display: inline-block;
+                background: #AC251F;
+                padding: 5px 10px;
+                width: 35px;
+                margin-left: -4px;
+            }
+            .add-cont label{
+                text-shadow: 1px 1px 2px rgba(0,0,0,.1);
+                color: white !important;
+            }
+            ::-webkit-scrollbar{
+                width: 5px;
+            }
+            ::-webkit-scrollbar-button{
+                width:8px;
+                height: 5px;
+            }
+            ::-webkit-scrollbar-track{
+                background:gainsboro;
+                -webkit-border-radius: 10px; 
+                border-radius: 10px; 
+            }
+            ::-webkit-scrollbar-thumb{
+                background:gray;
+                border-radius: 10px;
+                -webkit-border-radius: 10px;
+            }
+            ::-webkit-scrollbar-thumb:hover{
+                background:rgba(0,0,0,.6);
+            }
+            ::-webkit-scrollbar-thumb:window-inactive {
+                background: rgba(0,0,0,.1);
+            }
+            .grad{
+                position: absolute;
+                right: 15px;
+                bottom: -10px;
+                background: url(../img/gradiente.png);
+                background-repeat: repeat-x;
+                height: 82px;
+                width: 275px;
+            }
+            .loadone{
+                display: none;
+                position: absolute;
+                top: 28px;
+                left: 0px;
+            }
+            .loading{
+                display: none;
+                position: absolute;
+                bottom: -5px;
+                right: 62px;
+                background: #2962FF;
+                border: 10px solid #2962FF;
+            }
+        </style>
+    </head>
+    <body class="modal" onload="cargando();">
+        <div class="cont-dad"> 
+            <div class="preload">
+                <img src="../img/cargando.gif" class="preload-img">
+            </div>
+            <div class="formulario">
+                <div class="atras">
+                    <!--button onclick="atras();" id="btnAt" class="icon-atras"></button-->
+                    <h1 style="color: #595959">Lista de Pacientes Hospitalizadas</h1>
+                    <div style="  position: absolute;top: -8px;right: 0px;">
+                        <label for="fec">Fecha</label>
+                        <input type="text" id="fec" name="fec" disabled="" style="text-align: center;"/>
+                    </div>
+                    <div style="position: absolute;top: 69px;right: 0px;width: 100px;height: 50px;background: #EF5350;border-radius: 8px;">
+                        <label id="datos-env" style="text-shadow: 1px 1px 2px rgba(0,0,0,.1);text-align: center;margin-top: 1px;font-size: 33px;color: white;">0</label>
+                    </div>
+                </div>
+                <input type="hidden" value="" name="action" id="action">
+                <table style="width: 300px;visibility: false">
+                    <tr>
+                        <td style="width: 150px;visibility: false">
+                            <br><br><br>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="tabla">
+                <table class="datatable">
+                    <thead>
+                        <tr>
+                            <td  class="ColMS  atr">#</td>
+                            <td>Nombre</td>
+                            <td class="idColS">Edad</td>
+                            <td class="ColXXS">Diagnostico</td>
+                            <td class="idCol">Ubc.</td>
+                            <td class="ColSM">F. Ingreso</td>
+                            <td class="ColMM"></td>
+                        </tr>
+                    </thead>
+                    <tbody id="data">
+                    </tbody>
+                </table>
+            </div>
+            <div class="botones">
+                <div class="loading"></div>
+                <button type="button" onclick="window.parent.closeModal();" id="btnS" class="icon-cerrar">Cancelar</button>
+                <button type="button" onclick="window.parent.openModal2('Paciente');" id="btnS" class="icon-nuevo">R. Paciente</button>
+
+            </div>
+        </div>
+        <div class="agregados">
+            <label class="add-titu">Con Alerta:</label>
+            <ul class="add-ls">
+            </ul>
+        </div>
+        <div class="bloqueo">
+            <div class="advertenciaMainContant">
+                <div class="titleMainCpontent">
+                    <p class="titleAdvertencia">Advertencia</p>
+                    <figure class="imgAdvertenciaContent">
+                        <img src="../img/icoAdvertencia.svg" class="imgAdvertencia">
+                    </figure>
+                </div>
+                <div class="contenidoMain">
+                    <p class="textMainAlert">el código ingresado no es valido</p>
+                    <p class="textDescription">Por favor, verificar el código <br />escaneado y vuelva a escanearlo</p>
+                    <a href="#" class="btnAceptar" onclick="">Aceptar</a>
+                </div>
+            </div>
+        </div>
+        <script src="../js/jquery-2.1.1.min.js"></script>
+        <script src="../js/app.js"></script>
+        <script>
+                    window.parent.resizeModal(1100, 635);
+                    var contador = 0;
+                    $('#fec').val(fecha());
+                    listarPacientes();
+                    function listarPacientes() {
+                        $.ajax({
+                            type: 'POST',
+                            url: '../crl/pacienteCRL.php',
+                            data: {action: 'listPacientes'},
+                            success: function (data) {
+                                if (data != "null") {
+                                    
+                                    var lPacientes = JSON.parse(data);
+                                    listarXmarca(lPacientes);
+                                    $('#datos-env').text(lPacientes.length);
+                                    var string = '';
+                                    for (var i = 0; i < lPacientes.length; i++) {
+                                        string += '<tr>\n\
+                                                   <td  class=\"ColMS  atr ch\">' + (i + 1) + '</td>\n\
+                                                   <td>' + lPacientes[i][0] + '</td>\n\
+                                                   <td class=\"idColS\">' + lPacientes[i][1] + '</td>\n\
+                                                   <td class=\"ColXXS\">' + lPacientes[i][2] + '</td>\n\
+                                                   <td class="idCol">' + lPacientes[i][3] + '</td>\n\
+                                                   <td class="ColSM">' + lPacientes[i][4] + '</td>\n\
+                                                   <td class="ColMM"><button id=\"btnAcciones\" onclick=\"removeList(' + i + ');\" class=\"icon-cerrar\"></button></td>\n\
+                                                   </tr>';
+
+                                    }
+                                    for (var i = 0; i < (12 - lPacientes.length); i++) {
+                                        string += "<tr>\n\
+                                                   <td  class=\"ColMS  atr ch\"></td>\n\
+                                                   <td>&nbsp;</td>\n\
+                                                   <td  class=\"idColS\"></td>\n\
+                                                   <td class=\"ColXXS\"></td>\n\
+                                                   <td class=\"idCol\"></td>\n\
+                                                   <td class=\"ColSM\"></td>\n\
+                                                   <td class=\"ColMM\"></td>\n\
+                                                   </tr>";
+                                    }
+                                    $('#data').html(string);
+                                    $("#data").animate({scrollTop: $('#data')[0].scrollHeight}, 1000);
+                                    formatoTabla('180px');
+                                } else {
+                                    $('.textMainAlert').text('No existen pacientes hospitalizados');
+                                    $('.textDescription').html('Por favor, verificar el Registro de pacientes');
+                                    $('.bloqueo').css("display", "block");
+                                }
+                            },
+                            error: function () {
+                            }
+                        });
+                    }//ya
+                    /*$('.money').focusout(function () {
+                     var mon = $(this).val();
+                     if (mon != "" && mon != " " && !isNaN(mon)) {
+                     $(this).val(toDouble(mon));
+                     } else {
+                     $(this).val('0.00');
+                     }
+                     });*/
+                    /* function save() {
+                     if (listaProductos.length <= 0) {
+                     alert("No hay monturas agregadas.");
+                     $('#cod').focus();
+                     } else if ($('#prec').val() == "") {
+                     alert("Ingrese un valor en el tope de descuento.");
+                     $('#prec').focus();
+                     } else {
+                     if (confirm('Desea Guardar?')) {
+                     //var fechas = fecha();
+                     //var horas = hora();
+                     var productos = JSON.stringify(listaProductos);
+                     $.ajax({
+                     type: 'POST',
+                     url: '../crl/monturasCRL.php',
+                     data: {action: 'ModPrec', productos: productos, precio: $('#prec').val()},
+                     success: function () {
+                     $('#cod').attr("disabled", "");
+                     $('#Prec').attr("disabled", "");
+                     $('#btnS').attr("disabled", "");
+                     $('#btnS').attr("style", "background:#BCBCBC;color:white;");
+                     //isDisabled = true;
+                     },
+                     error: function () {
+                     }
+                     });
+                     }
+                     }
+                     }*/
+                    $('#data').css('height', '370px');
+                    /*$('body').keyup(function (e) {
+                     if (e.keyCode == 27) {
+                     $('.bloqueo').css("display", "none");
+                     $('#cod').focus();
+                     }
+                     });*/
+                    function  listarXmarca(aux) {
+                        var lista = [];
+                        for (var i = 0; i < aux.length; i++) {
+                            var isnew = true;
+                            var edit = -1;
+                            for (var j = 0; j < lista.length; j++) {
+                                if (aux[i][0] == lista[j][0]) {
+                                    isnew = false;
+                                    edit = j;
+                                }
+                            }
+                            if (isnew) {
+                                var temp = [aux[i][0], 1];
+                                lista.push(temp);
+                            } else {
+                                var a = lista[edit][1];
+                                a = a + 1;
+                                lista[edit][1] = a;
+                            }
+                        }
+                        $(".add-ls").html("");
+                        for (var i = 0; i < lista.length; i++) {
+                            var string = '<li class="add-item">\n\
+                                          <label class="add-nom">' + lista[i][0] + '</label>\n\
+                                          <div class="add-cont">\n\
+                                          <label>' + lista[i][1] + '</label>\n\
+                                          </div>\n\
+                                          </li>';
+                            $(".add-ls").append(string);
+                        }
+                    }
+                    estoyEnUnIframe();
+        </script>
+    </body>
+</html>

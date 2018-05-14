@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html> 
+    <head>
+        <title></title>
+        <link rel="stylesheet" type="text/css" href="../css/app.css">
+        <style>
+            .BigTbody tr:hover .whiteHover{
+                color: black !important;
+                font-weight: inherit !important;
+            }
+        </style>
+    </head>
+    <body class="modal" onload="cargando();">
+        <div class="preload">
+            <img src="../img/cargando.gif" class="preload-img">
+        </div>
+        <div class="formulario">
+            <div class="botones">
+                <h2 id="titu">< ?= $nombrePaciente ?> <span> < ?=$UltimoEstado ?></span></h2>
+                <button onclick="location.href = 'detallemovimientoP.html';" class="btnn icon-tabla">Resumen</button>
+            </div>
+        </div>
+        <div class="tabla">
+            <table class="datatable" style="text-align: center">
+                <thead>
+                    <tr>
+                        <td class="ColMS">Item</td>
+                        <td>Fecha</td>
+                        <td>Hora</td>
+                        <td>P.S.</td>
+                        <td>P.D.</td>
+                        <td>Pulso</td>
+                        <td>Tiemp</td>
+                        <td>SPO2</td>
+                    </tr>
+                </thead>
+                <tbody id="data" class="BigTbody" style="text-transform: uppercase">
+                </tbody>
+            </table>
+            <h3>Vista de los 20 ultimos Eventos.</h3>
+        </div>
+        <br>
+        <div id="container" style="min-width: 310px; height: 520px; margin: 20px auto 0"></div>
+
+        <script src="../js/jquery-2.1.1.min.js"></script>
+        <script src="../js/app.js"></script>
+        <script src="../js/highcharts.js"></script>
+        <script src="../js/exporting.js"></script>
+        <script>
+                    window.parent.resizeModal(900, 1000);
+                    var movimiento = $_GET('alta');
+                    var tie = $_GET('ti');
+                    var tipoL = 'listProd';
+                    if (movimiento != undefined) {
+                        tipoL = 'listpProd';
+                        $('#titu').html('Ingresos a Optica');
+                        $('.btnn').css('visibility', 'hidden')
+                        $('.tabla h3').html('Vista de los movimientos pendientes.');
+                    }
+                    if (tie == undefined) {
+                        tie = "";
+                    }
+                    loadMovimiento();
+                    function loadMovimiento() {
+                        var string = '';
+                        for (var j = 0; j < (10 - 0); j++) {
+                            string += '<tr>\n\
+                                               <td class=\"ColMS ch\"></td>\n\
+                                               <td>&nbsp;</td>\n\
+                                               <td></td>\n\
+                                               <td></td>\n\
+                                               <td></td>\n\
+                                               <td></td>\n\
+                                               <td></td>\n\
+                                               <td></td>\n\</tr>';
+                        }
+                        $('#data').html(string);
+                        //formatoTabla('162px');
+
+                        formatoTabla('95px');
+                    }
+                    function getdetalle(id, event) {
+                        var tag;//event.srcElement.tagName || e
+                        if (event.srcElement) {
+                            tag = event.srcElement.tagName;
+                        } else if (event.target) {
+                            tag = event.target.tagName;
+                        }
+                        //alert(tag);
+                        if (tag != "BUTTON" || tag == undefined) {
+                            var url = 'detallemovimientoP.html?idmovimiento=' + id;
+                            if (movimiento != undefined) {
+                                url = 'detallemovimientoP.html?idmovimiento=' + id + '&ti=' + tie + '&alta=true';
+                            }
+                            location.href = url;
+                        }
+                    }
+                    function delEnvio(id) {
+                        if (confirm('Desea elimiar el envio a tienda?')) {
+                            $.ajax({
+                                type: 'POST',
+                                url: '../crl/movimientoCRL.php',
+                                data: {action: 'delp', id: id},
+                                success: function (data) {
+                                    if (data != 'NO') {
+                                        alert('Envio a tienda Eliminado!!');
+                                        loadMovimiento();
+                                    }
+                                },
+                                error: function () {
+                                }
+                            });
+                        }
+                    }
+                    $('#data').css('height', '280px');
+                    //estoyEnUnIframe();
+                    var cross = true;
+                    var share = false;
+                    var colors = ['#00FFE7', '#00B2A2', '#F4CA00'];
+                    var f=new Date();
+                    var cad=f.getDate() + "/" + (f.getMonth() +1) + "/" + f.getFullYear()+" "+f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(); 
+                    $('#container').highcharts({
+                                        chart: {
+                                            type: 'line'
+                                        },
+                                        colors: colors,
+                                        title: {
+                                            text: 'Signos Vitales - '
+                                        },
+                                        subtitle: {
+                                            text: 'Reporte Actualizado a: '+  cad
+                                        },
+                                        xAxis: {
+                                            categories: ['Hoy'],
+                                            crosshair: cross
+                                        },
+                                        yAxis: {
+                                            min: 0,
+                                            title: {
+                                                text: 'Unit.'
+                                            }
+                                        },
+                                        tooltip: {
+                                            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                                    '<td style="padding:0"><b>S/. {point.y:.1f}</b></td></tr>',
+                                            footerFormat: '</table>',
+                                            shared: share,
+                                            useHTML: true
+                                        },
+                                        plotOptions: {
+                                            column: {
+                                                pointPadding: 0.2,
+                                                borderWidth: 0
+                                            }
+                                        },
+                                        series: [{
+                                                name: 'P.S.',
+                                                data: []
+
+                                            }, {
+                                                name: 'P.D.',
+                                                data: []
+
+                                            }, {
+                                                name: 'Pulso',
+                                                data: []
+                                            }, {
+                                                name: 'Temp',
+                                                data: []
+                                            }, {
+                                                name: 'SPO2',
+                                                data: []
+                                            }]
+                                    });
+        </script>
+    </body>
+</html>
